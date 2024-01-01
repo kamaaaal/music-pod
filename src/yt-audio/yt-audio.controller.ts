@@ -1,5 +1,6 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { YtAudioService } from './yt-audio.service';
+import { AddSongToPlaylist } from './dto/addSongToPlaylist';
 
 @Controller('yt-audio')
 export class YtAudioController {
@@ -9,8 +10,8 @@ export class YtAudioController {
     ){}
 
     @Post()
-    private addToPlayList(@Body() body){
-        return ytAudioService.
+    private addToPlayList(@Body() body : AddSongToPlaylist){
+        return this.ytAudioService.addToPlaylist(body);
     }
 
 }

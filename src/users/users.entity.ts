@@ -1,8 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { RoomsEntity } from "src/rooms/entities/rooms.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class UserEntity{
 
+    // basic columns
     @PrimaryGeneratedColumn("rowid")
     userId : string
 
@@ -12,8 +14,16 @@ export class UserEntity{
     userName : string;
     @Column()
     password : string;
+
+    // nullable 
     @Column({
         nullable : true
     })
     email : string
+
+    // relational virtual columns 
+    @OneToMany(() => RoomsEntity,(rooms : RoomsEntity) => rooms.createdBy)
+    createdRooms : RoomsEntity[];
+
+
 } 
