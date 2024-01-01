@@ -4,6 +4,7 @@ import { createResponse, StatusCode } from "src/utils/Responses";
 import { Repository } from "typeorm";
 import { CreateUserDto } from "./dto/createUser.dto";
 import { UserEntity } from "./users.entity";
+import bcrypt from "bcrypt";
 
 @Injectable()
 export class UsersService{
@@ -13,6 +14,8 @@ export class UsersService{
     public async createUser(createUser : CreateUserDto){
 
         const userObj = this.userEntity.create(createUser);
+        // encrypt user password
+        userObj.password = await bcrypt.hash(userObj.password,8);
         await this.userEntity.save(userObj);
         return createResponse(StatusCode.created,"user created successfully");
     }

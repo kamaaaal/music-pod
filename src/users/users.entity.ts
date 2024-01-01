@@ -5,7 +5,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "ty
 export class UserEntity{
 
     // basic columns
-    @PrimaryGeneratedColumn("rowid")
+    @PrimaryGeneratedColumn("increment")
     userId : string
 
     @Column({
@@ -21,9 +21,14 @@ export class UserEntity{
     })
     email : string
 
+    // currentRoom 
+    @ManyToOne(() => RoomsEntity, (room : RoomsEntity) => room.members)
+    connectedRoom : RoomsEntity
+
     // relational virtual columns 
     @OneToMany(() => RoomsEntity,(rooms : RoomsEntity) => rooms.createdBy)
     createdRooms : RoomsEntity[];
+
 
 
 } 
