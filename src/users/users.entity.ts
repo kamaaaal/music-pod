@@ -12,6 +12,7 @@ export class UserEntity{
         unique : true
     })
     userName : string;
+    
     @Column()
     password : string;
 

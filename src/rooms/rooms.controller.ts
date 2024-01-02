@@ -1,28 +1,29 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { CreateRoomDto } from "./dto/rooms.dto";
-import { RoomsEntity } from "./entities/rooms.entity";
-import { Repository } from "typeorm";
-import { InjectRepository } from "@nestjs/typeorm";
+import { AuthGuard } from "src/users/auth/auth.guard";
+import { RoomsService } from "./rooms.service";
+import { GetUser } from "src/users/auth/getUser.decorator";
+import { UserEntity } from "src/users/users.entity";
 
 @Controller('/rooms')
 export class RoomsController{
     constructor(
-        @InjectRepository(RoomsEntity)
-        private roomsRepository : Repository<RoomsEntity>
+      private roomsService : RoomsService
     ){}
     
     @Post()
     public async createRoom (@Body() body : CreateRoomDto){
-        return await this.roomsRepository.save({
-            roomName : "room1",
-            // createdBy : ,
-            status : RoomsEntity.STATUS.PAUSED,
-        })
+        // return await this.roomsRepository.save({
+        //     roomName : "room1",
+        //     // createdBy : ,
+        //     status : RoomsEntity.STATUS.PAUSED,
+        // })
     }
 
+    @UseGuards(AuthGuard)
     @Get()
-    public async getAllRoom (){
-        return this.roomsRepository.find();
+    public async getAllRoom (@GetUser() user: Partial<UserEntity>){
+        return await this.roomsService.getAllRooms();
     }
     
 }
