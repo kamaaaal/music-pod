@@ -18,10 +18,13 @@ export class RoomsEntity{
     @PrimaryGeneratedColumn('increment')
     roomId : number;
 
-    @Column()
+    @Column({
+        unique : true
+    })
     roomName : string;
 
     @Column({
+        nullable : true,
         type : "simple-enum",
         enum : RoomsEntity.STATUS
     })

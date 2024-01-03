@@ -12,12 +12,9 @@ export class RoomsController{
     ){}
     
     @Post()
-    public async createRoom (@Body() body : CreateRoomDto){
-        // return await this.roomsRepository.save({
-        //     roomName : "room1",
-        //     // createdBy : ,
-        //     status : RoomsEntity.STATUS.PAUSED,
-        // })
+    @UseGuards(AuthGuard)
+    public async createRoom (@Body() body : CreateRoomDto,@GetUser() user : Omit<UserEntity,'password'>){
+        return await this.roomsService.createRoom(body,user);
     }
 
     @UseGuards(AuthGuard)
