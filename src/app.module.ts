@@ -7,6 +7,7 @@ import { RoomsModule } from './rooms/rooms.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './users/auth/auth.guard';
 import { YtStreamModule } from './yt-stream/yt-stream.module';
+import { SongsModule } from './songs/songs.module';
 
 const dbModule = TypeOrmModule.forRoot({
   type : "sqlite",//!todo keep it outSide of dist
@@ -17,7 +18,7 @@ const dbModule = TypeOrmModule.forRoot({
 })
 
 @Module({
-  imports: [dbModule,UsersModule,RoomsModule, YtStreamModule  ],
+  imports: [dbModule,UsersModule,RoomsModule, YtStreamModule, SongsModule  ],
   controllers: [AppController],
   providers: [AppService,
   /* to enable auth guard to whole app */

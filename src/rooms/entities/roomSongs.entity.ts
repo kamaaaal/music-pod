@@ -9,6 +9,9 @@ export class RoomsSongsEntity {
     @Column()
     songName : string;
 
+    @Column()
+    songUrl : string;
+
     @OneToOne(() => RoomsEntity, (roomsSongs :RoomsEntity) => roomsSongs.roomId)
     room : RoomsEntity;
 
