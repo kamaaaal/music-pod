@@ -11,7 +11,7 @@ import { SongsModule } from './songs/songs.module';
 
 const dbModule = TypeOrmModule.forRoot({
   type : "sqlite",//!todo keep it outSide of dist
-  database : "./sqlite.db",
+  database : "../../sqlite.db",
   entities: ["dist/**/*.entity{.ts,.js}"],
   autoLoadEntities : true,
   synchronize : true,

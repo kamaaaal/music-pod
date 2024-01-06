@@ -27,13 +27,16 @@ export class YtStreamController {
             <html>
                 <body>
                     <input type="text" id="songUrl" />
+                    <audio id='songDiv' controls src=""></audio>
                     <button onclick="playSong()">Play</button>
                     <button onclick="stopSong()">Stop</button>
                     <script>
                         let audio;
                         function playSong(){
                             const songUrl = document.getElementById('songUrl').value;
-                            audio = new Audio(\`/stream/song?song=\${songUrl}\`);
+                            // audio = new Audio(\`/api/stream/song?song=\${songUrl}\`);
+                            audio = document.getElementById('songDiv');
+                            audio.src = \`/api/stream/song?song=\${songUrl}\`;
                             audio.play();
                         }
                         function stopSong(){
