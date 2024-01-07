@@ -1,6 +1,10 @@
 {
-    "$schema": "https://turborepo.org/schema.json",
-    "pipeline": {
-        "dev" :{}
-    }
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    "dev": {},
+    "lint": {
+      "cache": true
+    },
+    "lint:fix": {}
+  }
 }

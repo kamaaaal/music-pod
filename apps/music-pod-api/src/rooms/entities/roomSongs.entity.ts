@@ -3,21 +3,21 @@ import { RoomsEntity } from "./rooms.entity";
 
 @Entity()
 export class RoomsSongsEntity {
-    @PrimaryGeneratedColumn('uuid')
-    songsId : string;
+  @PrimaryGeneratedColumn("uuid")
+  songsId: string;
 
-    @Column()
-    songName : string;
+  @Column()
+  songName: string;
 
-    @Column()
-    songUrl : string;
+  @Column()
+  songUrl: string;
 
-    @OneToOne(() => RoomsEntity, (roomsSongs :RoomsEntity) => roomsSongs.roomId)
-    room : RoomsEntity;
+  @OneToOne(() => RoomsEntity, (roomsSongs: RoomsEntity) => roomsSongs.roomId)
+  room: RoomsEntity;
 
-    @Column({
-        type : "integer",
-        default : 1,
-    })
-    order : number;
+  @Column({
+    type: "integer",
+    default: 1,
+  })
+  order: number;
 }
