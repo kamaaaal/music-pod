@@ -1,0 +1,18 @@
+-- colors 
+colors: {
+ 'text': '#1b1109',
+ 'background': '#fcf8f5',
+ 'primary': '#fb7512',
+ 'secondary': '#dfda9f',
+ 'accent': '#c4d070',
+},
+
+-- FontFaceSet
+colors: {
+    'text': '#1b1109',
+    'background': '#fcf8f5',
+    'primary': '#fb7512',
+    'secondary': '#dfda9f',
+    'accent': '#c4d070',
+   },
+       
