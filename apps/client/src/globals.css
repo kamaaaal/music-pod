@@ -75,6 +75,9 @@
   }
 }
 
-html,body {
-    @apply w-screen h-screen;
+html,body{
+  width : 100svw;
+  height: 100svh;
+  display: grid;
+  place-items: center;
 }

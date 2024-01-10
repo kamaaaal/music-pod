@@ -15,5 +15,7 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "react-refresh/only-export-components": "off"
   },
 };
