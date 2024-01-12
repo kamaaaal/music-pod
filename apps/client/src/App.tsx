@@ -1,8 +1,8 @@
-import Login from "./pages/login";
 import "./globals.css";
+import Routers from "./Routes";
 
 function App() {
-  return <Login />;
+  return <Routers />;
 }
 
 export default App;

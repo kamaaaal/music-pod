@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "lint:fix" : "turbo run lint:fix",
+    "lint:fix": "turbo run lint:fix",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -36,5 +36,8 @@
   },
   "workspaces": [
     "apps/*"
-  ]
+  ],
+  "dependencies": {
+    "react-router-dom": "^6.21.2"
+  }
 }

@@ -31,7 +31,6 @@ export default function Login() {
     resolver: zodResolver(formSchema),
     defaultValues: { username: "", password: "" },
   });
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
@@ -93,8 +92,7 @@ export default function Login() {
                           error ? "scale-100" : "scale-0"
                         }`}
                       >
-                        {" "}
-                        {error || " t"}
+                        {error || ""}
                       </p>
                     </div>
                   );
@@ -103,8 +101,11 @@ export default function Login() {
             </Form>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-center">
+        <CardFooter className="flex justify-center flex-col gap-3">
           <Button type="submit">Login</Button>
+          <p className="text-xs underline font-light cursor-pointer">
+            New User ? Sign up
+          </p>
         </CardFooter>
       </form>
     </Card>
