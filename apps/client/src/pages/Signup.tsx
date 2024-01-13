@@ -27,13 +27,14 @@ const formSchema = z.object({
   password: z.string().min(6, "Password cannot be less than 6 chars"),
 });
 
-export default function Login() {
+export default function Signup() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { username: "", password: "" },
   });
 
   const navigate = useNavigate();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
@@ -41,7 +42,7 @@ export default function Login() {
   return (
     <Card className="w-[350px] glass-back">
       <CardHeader>
-        <CardTitle>Login</CardTitle>
+        <CardTitle>Sign Up</CardTitle>
         {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
       </CardHeader>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -54,7 +55,7 @@ export default function Login() {
                   const error = fieldProps.fieldState?.error?.message;
                   return (
                     <div className="flex flex-col space-y-1.5">
-                      <Label htmlFor="name">{fieldProps.field.name}</Label>
+                      <Label htmlFor="name">Username</Label>
                       <FormControl>
                         <Input
                           id="name"
@@ -81,7 +82,7 @@ export default function Login() {
                   const error = fieldProps.fieldState.error?.message;
                   return (
                     <div className="flex flex-col space-y-1.5">
-                      <Label htmlFor="password">{fieldProps.field.name}</Label>
+                      <Label htmlFor="password">Password</Label>
                       <FormControl>
                         <Input
                           id="name"
@@ -105,12 +106,14 @@ export default function Login() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-center flex-col gap-3">
-          <Button type="submit">Login</Button>
+          <Button type="submit">Sign Up</Button>
           <p
             className="text-xs underline font-light cursor-pointer"
-            onClick={() => navigate("/signup")}
+            onClick={() => {
+              navigate("/login");
+            }}
           >
-            New User ? Sign up
+            user Already? Sign in
           </p>
         </CardFooter>
       </form>
