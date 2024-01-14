@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { CreateUserDto } from "./dto/createUser.dto";
+import { CreateUserDto } from "music-pod-shared/dist/userdto/user.dto";
 import { UsersService } from "./users.service";
 import { LoginDto } from "./dto/login.dto";
 
