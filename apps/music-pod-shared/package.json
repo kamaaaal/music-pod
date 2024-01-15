@@ -1,0 +1,24 @@
+{
+  "name": "music-pod-shared",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "exports": {
+    "require": "./dist/music-pod-shared.js",
+    "import": "./dist/music-pod-shared.mjs" 
+  },  
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.0.11",
+    "vite-plugin-dts": "^3.7.1"
+  }
+}

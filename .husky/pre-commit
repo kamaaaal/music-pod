@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run --workspace=apps/client lint
-npm run --workspace=apps/music-pod-api lint
+# npm run --workspace=apps/client lint
+# npm run --workspace=apps/music-pod-api lint

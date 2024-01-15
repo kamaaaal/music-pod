@@ -1,2 +1,2 @@
-export * from "./src/dto";
+export * from "./dto";
 // export * from "./src/constants";

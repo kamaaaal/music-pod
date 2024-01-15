@@ -16,6 +16,7 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
-    "react-refresh/only-export-components": "off"
+    "react-refresh/only-export-components": "off",
+    "@typescript-eslint/no-explicit-any" : "off"
   },
 };

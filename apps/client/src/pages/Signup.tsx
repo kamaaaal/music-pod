@@ -14,13 +14,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useNavigate } from "react-router-dom";
-
+import { CreateUser } from "@/integration/users";
+import { AxiosError } from "axios";
+import { ApiResponse } from "@/integration/IntegrationUtils";
 /**
  * Home or login page
  */
 
 const formSchema = z.object({
-  username: z
+  userName: z
     .string()
     .min(5, "User Name should be greater than 5 chars")
     .max(15, "User Name cannot be more than 15 chars"),
@@ -28,15 +30,34 @@ const formSchema = z.object({
 });
 
 export default function Signup() {
+  // console.log(all);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { username: "", password: "" },
+    defaultValues: { userName: "", password: "" },
   });
 
   const navigate = useNavigate();
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const res = await CreateUser(values);
+    } catch (err: any) {
+      const res = err.response.data;
+      // gets the first key of the error object if exitst
+      const error =
+        Object.keys(res?.errors || {}).length &&
+        Object.keys(res?.errors || {})[0];
+      const errorMessage =
+        res?.errors?.[error] instanceof Array
+          ? res?.errors?.[error][0]
+          : res?.errors?.[error];
+      if (error)
+        form.setError(
+          error as keyof z.infer<typeof formSchema>,
+          { message: res?.errors?.[error] },
+          { shouldFocus: true },
+        );
+    }
   }
 
   return (
@@ -50,7 +71,7 @@ export default function Signup() {
           <div className="grid w-full items-center gap-4">
             <Form {...form}>
               <FormField
-                name={"username"}
+                name={"userName"}
                 render={(fieldProps) => {
                   const error = fieldProps.fieldState?.error?.message;
                   return (

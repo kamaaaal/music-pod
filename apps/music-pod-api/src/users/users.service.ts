@@ -11,6 +11,7 @@ import { UserEntity } from "./users.entity";
 import { hash, compare } from "bcrypt";
 import { LoginDto } from "./dto/login.dto";
 import { JwtService } from "@nestjs/jwt";
+import { CustomValidationException } from "src/common/exceptions/cutom-validation-exception";
 
 @Injectable()
 export class UsersService {
@@ -27,10 +28,10 @@ export class UsersService {
       await this.userRepo.save(userObj);
       return createResponse(StatusCode.created, "user created successfully");
     } catch (err) {
-      // console.log(err.__proto__);
       if (err instanceof TypeORMError) {
+        // if duplicate entry 
         if ((err as unknown as { errno: number })?.errno === 19) {
-          throw new HttpException("UserName already Exists", 401);
+          throw new CustomValidationException({userName : "UserName already Exists"}, 401);
         }
       }
     }
