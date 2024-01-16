@@ -15,7 +15,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useNavigate } from "react-router-dom";
 import { CreateUser } from "@/integration/users";
-import { AxiosError } from "axios";
 import { ApiResponse } from "@/integration/IntegrationUtils";
 /**
  * Home or login page
@@ -41,20 +40,26 @@ export default function Signup() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await CreateUser(values);
+      console.log(res);
     } catch (err: any) {
-      const res = err.response.data;
+      const res = err.response.data as ApiResponse;
       // gets the first key of the error object if exitst
-      const error =
-        Object.keys(res?.errors || {}).length &&
-        Object.keys(res?.errors || {})[0];
-      const errorMessage =
-        res?.errors?.[error] instanceof Array
-          ? res?.errors?.[error][0]
-          : res?.errors?.[error];
-      if (error)
+
+      // if there are errors just take the first error, as we show only one error per field
+      let errorField, error;
+      if (Object.keys(res.errors || {}).length) {
+        // check the length of the error obj
+        // if there is an error get its first keys value
+        errorField = Object.keys(res?.errors || {})[0];
+        const firstError = res?.errors?.[errorField];
+        // check whether the passed in error is [] or string, if its an array take its first elemtn
+        error = firstError instanceof Array ? firstError[0] : firstError;
+      }
+
+      if (errorField)
         form.setError(
-          error as keyof z.infer<typeof formSchema>,
-          { message: res?.errors?.[error] },
+          errorField as keyof z.infer<typeof formSchema>,
+          { message: error },
           { shouldFocus: true },
         );
     }

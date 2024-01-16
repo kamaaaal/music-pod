@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, ValidationPipe } from "@nestjs/common";
+import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { ValidationError } from "class-validator";
 import { AppModule } from "./app.module";
@@ -13,13 +13,13 @@ async function bootstrap() {
       exceptionFactory: (validationErrors: ValidationError[] = []) => {
         return new CustomValidationException(
           validationErrors.map((error) => ({
-            [error.property] : Object.values(error.constraints),
+            [error.property]: Object.values(error.constraints),
           })),
         );
       },
     }),
   );
-  app.useGlobalFilters(new ValidationFilter())
+  app.useGlobalFilters(new ValidationFilter());
   await app.listen(3000);
 }
 bootstrap();

@@ -1,8 +1,4 @@
-import {
-  HttpException,
-  Injectable,
-  UnauthorizedException,
-} from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { createResponse, StatusCode } from "src/utils/Responses";
 import { Repository, TypeORMError } from "typeorm";
@@ -29,9 +25,12 @@ export class UsersService {
       return createResponse(StatusCode.created, "user created successfully");
     } catch (err) {
       if (err instanceof TypeORMError) {
-        // if duplicate entry 
+        // if duplicate entry
         if ((err as unknown as { errno: number })?.errno === 19) {
-          throw new CustomValidationException({userName : "UserName already Exists"}, 401);
+          throw new CustomValidationException(
+            { userName: "Username already Exists" },
+            401,
+          );
         }
       }
     }
