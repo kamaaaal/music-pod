@@ -16,6 +16,8 @@ import * as z from "zod";
 import { useNavigate } from "react-router-dom";
 import { LoginUser } from "@/integration/users";
 import { ApiResponse } from "@/integration/IntegrationUtils";
+import { toast } from "sonner";
+import { ErrorAltert } from "@/cutomComponents/ErrorAlert";
 
 /**
  * Home or login page
@@ -44,23 +46,10 @@ export default function Login() {
       const res = err.response.data as ApiResponse;
       // gets the first key of the error object if exitst
 
-      // if there are errors just take the first error, as we show only one error per field
-      let errorField, error;
-      if (Object.keys(res.errors || {}).length) {
-        // check the length of the error obj
-        // if there is an error get its first keys value
-        errorField = Object.keys(res?.errors || {})[0];
-        const firstError = res?.errors?.[errorField];
-        // check whether the passed in error is [] or string, if its an array take its first elemtn
-        error = firstError instanceof Array ? firstError[0] : firstError;
+      if (res.statusCode === 401) {
+        const ErrorToast = <ErrorAltert message={res.message} />;
+        toast(ErrorToast);
       }
-
-      if (errorField)
-        form.setError(
-          errorField as keyof z.infer<typeof formSchema>,
-          { message: error },
-          { shouldFocus: true },
-        );
     }
   }
 
